@@ -87,7 +87,7 @@ public class FileCacheManager implements CacheManager {
     }
 
     public static void main(String[] args) {
-        FileCacheManager fileCacheManager = new FileCacheManager("C:\\Users\\Eden\\IdeaProjects\\Paradigms_project\\src\\cache");
+        FileCacheManager fileCacheManager = new FileCacheManager("C:\\Users\\Eden\\IdeaProjects\\Paradigms_project\\src\\cache_file");
         Vector<String> p = new Vector<>();
         p.add("yoyo");
         fileCacheManager.save(p, "oyoy");

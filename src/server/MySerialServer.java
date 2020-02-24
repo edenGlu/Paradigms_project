@@ -2,6 +2,8 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+
 import client.ClientHandler;
 
 public class MySerialServer implements Server {
@@ -44,7 +46,7 @@ public class MySerialServer implements Server {
         }
 
         private synchronized boolean keepRunning() {
-            return this._doStop == false;
+            return !this._doStop;
         }
 
         @Override
@@ -52,9 +54,12 @@ public class MySerialServer implements Server {
             while (keepRunning()) {
                 try {
                     _serverSocket.setSoTimeout(TIMEOUT);
-                    Socket clientSocket = _serverSocket.accept(); // maybe need putאtimeout
-                    System.out.println("get a client");
+                    Socket clientSocket = _serverSocket.accept();
+                    System.out.println("Got client");
                     _clientHandler.handleClient(clientSocket);
+                } catch (SocketTimeoutException s) {
+                    System.out.println("Socket time out: " + s.getMessage());
+                    break;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
