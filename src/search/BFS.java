@@ -7,28 +7,35 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Vector;
 
-public class BFS extends Search {
+public class BFS extends Searcher {
     private Queue<Node> openList = new LinkedList<Node>();
 
     @Override
     public Vector<State> search() {
-        State start = this.dataStructure.getStartState();
-        Node startNode = new Node(start, start.getCost(), null);
-        openList.add(startNode);
-        do {
-            Node current = openList.poll();
-            if (dataStructure.isGoalState(current.getCurrentState())) {
-                return current.solution();
+        return baseSearch(new DataStructure() {
+            @Override
+            public Node pull() {
+                return openList.poll();
             }
-            this.closeList.add(current);
-            Vector<State> neighbors = this.dataStructure.getAllPossibleState(current.getCurrentState());
-            for (State adj : neighbors) {
-                if (!isInTheCloseList(adj) && !isInTheOpenList(adj)) {
-                    this.openList.add(new Node(adj, current.getMinPath() + adj.getCost(), current));
-                }
+
+            @Override
+            public boolean add(Node var1) {
+                return openList.add(var1);
             }
-        } while (openList.size() > 0);
-        return null; // no path
+
+            @Override
+            public int size() {
+                return openList.size();
+            }
+
+        }, (State s) -> s.getCost());
+    }
+
+    @Override
+    void visit(State next, Node current) {
+        if (!isInTheOpenList(next)) {
+            this.openList.add(new Node(next, current.getMinPath() + next.getCost(), current));
+        }
     }
 
 
@@ -41,11 +48,4 @@ public class BFS extends Search {
         return false;
     }
 
-    private void comperePath(Node next, Node current) {
-        double currentPath = current.getMinPath() + next.getCurrentState().getCost();
-        if (next.getMinPath() > currentPath) {
-            next.setMinPath(currentPath);
-            next.setParent(current);
-        }
-    }
 }
