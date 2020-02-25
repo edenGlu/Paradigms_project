@@ -23,13 +23,8 @@ public class BFS extends Search {
             this.closeList.add(current);
             Vector<State> neighbors = this.dataStructure.getAllPossibleState(current.getCurrentState());
             for (State adj : neighbors) {
-                if (!isInTheCloseList(adj)) {
-                    Node node = isInTheOpenList(adj);
-                    if (node == null) {
-                        this.openList.add(new Node(adj, current.getMinPath() + adj.getCost(), current));
-                    } else {
-                        comperePath(node, current);
-                    }
+                if (!isInTheCloseList(adj) && !isInTheOpenList(adj)) {
+                    this.openList.add(new Node(adj, current.getMinPath() + adj.getCost(), current));
                 }
             }
         } while (openList.size() > 0);
@@ -37,13 +32,13 @@ public class BFS extends Search {
     }
 
 
-    private Node isInTheOpenList(State s) {
+    private boolean isInTheOpenList(State s) {
         for (Node openNode : openList) {
             if (openNode.getCurrentState().isEqual(s)) {
-                return openNode;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     private void comperePath(Node next, Node current) {
