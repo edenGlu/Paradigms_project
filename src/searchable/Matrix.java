@@ -51,8 +51,8 @@ public class Matrix implements Searchable {
         Vector<State> possibleState = new Vector<>();
         Vector<Pair<Integer, Integer>> neighbors = makeNeighbors(state.getLocation());
         for (Pair<Integer, Integer> pair : neighbors) {
-            if ((pair.First() >=0 && pair.First() <= this.matrixStates.size()) &&
-            (pair.Second() >=0 && pair.Second() <= this.matrixStates.size())){
+            if ((pair.First() >=0 && pair.First() < this.matrixStates.size()) &&
+            (pair.Second() >=0 && pair.Second() < this.matrixStates.size())){
                 possibleState.add(this.matrixStates.get(pair.First()).get(pair.Second()));
             }
         }

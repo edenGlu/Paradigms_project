@@ -1,5 +1,7 @@
+import algorithms.Node;
 import cashe.FileCacheManager;
 import client.MyTestClientHandler;
+import search.BFS;
 import searchable.State;
 import server.MySerialServer;
 import solution.StringReverser;
@@ -22,7 +24,9 @@ public class boot {
         data.add("0,0");
         data.add("2,2");
         m.create(data);
-        Vector<State> states = m.getAllPossibleState(m.getStartState());
-        System.out.println(states);
+        BFS bfs = new BFS();
+        bfs.setSearchable(m);
+        Vector<State> sol = bfs.search();
+        System.out.println(sol);
     }
 }

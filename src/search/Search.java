@@ -15,6 +15,15 @@ public abstract class Search {
 
     abstract Vector<State> search();
 
+    protected boolean isInTheCloseList(State s) {
+        for (Node closeNode : closeList) {
+            if (closeNode.getCurrentState().isEqual(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setSearchable(Searchable data) {
         this.dataStructure = data;
     }
