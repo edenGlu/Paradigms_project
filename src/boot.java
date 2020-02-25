@@ -2,6 +2,7 @@ import algorithms.Node;
 import cashe.FileCacheManager;
 import client.MyTestClientHandler;
 import search.BFS;
+import search.BestFS;
 import searchable.State;
 import server.MySerialServer;
 import solution.StringReverser;
@@ -27,6 +28,9 @@ public class boot {
         BFS bfs = new BFS();
         bfs.setSearchable(m);
         Vector<State> sol = bfs.search();
-        System.out.println(sol);
+        BestFS bestFS = new BestFS();
+        bestFS.setSearchable(m);
+        Vector<State> sol2 = bestFS.search();
+        System.out.println("good");
     }
 }

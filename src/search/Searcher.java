@@ -8,7 +8,7 @@ import searchable.State;
 import java.util.HashSet;
 import java.util.Vector;
 
-public abstract class Searcher {
+    public abstract class Searcher {
 
     protected Searchable searchable;
     protected HashSet<Node> closeList = new HashSet<Node>();
