@@ -1,4 +1,4 @@
-package search;
+package searcher;
 
 import algorithms.Node;
 import searchable.State;
@@ -28,30 +28,30 @@ public class BestFS extends Searcher {
             public int size() {
                 return openList.size();
             }
-        }, (State s) -> s.getCost());
+        }, State::getCost);
     }
 
     @Override
     void visit(State next, Node current) {
-        Node nextNode = isInTheOpenList(next);
+        Node nextNode = InOpenList(next);
         if (nextNode == null) {
             this.openList.add(new Node(next, current.getMinPath() + next.getCost(), current));
         } else {
-            comperePath(nextNode, current);
+            comparePath(nextNode, current);
         }
     }
 
-    private Node isInTheOpenList(State s) {
+    private Node InOpenList(State s) {
         for (Node openNode : openList) {
-            if (openNode.getCurrentState().isEqual(s)) {
+            if (openNode.getState().isEqual(s)) {
                 return openNode;
             }
         }
         return null;
     }
 
-    private void comperePath(Node next, Node current) {
-        double newPath = current.getMinPath() + next.getCurrentState().getCost();
+    private void comparePath(Node next, Node current) {
+        double newPath = current.getMinPath() + next.getState().getCost();
         if (newPath < next.getMinPath()) {
             next.setParent(current);
             next.setMinPath(newPath);

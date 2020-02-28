@@ -1,4 +1,4 @@
-package search;
+package searcher;
 
 import algorithms.Node;
 import searchable.Searchable;
@@ -11,15 +11,15 @@ import java.util.Vector;
     public abstract class Searcher {
 
     protected Searchable searchable;
-    protected HashSet<Node> closeList = new HashSet<Node>();
+    private HashSet<Node> closedList = new HashSet<>();
 
-    abstract Vector<State> search();
+    abstract public Vector<State> search();
 
     abstract void visit(State next, Node current);
 
-    private boolean isInTheCloseList(State s) {
-        for (Node closeNode : closeList) {
-            if (closeNode.getCurrentState().isEqual(s)) {
+    private boolean InClosedList(State s) {
+        for (Node closeNode : closedList) {
+            if (closeNode.getState().isEqual(s)) {
                 return true;
             }
         }
@@ -30,19 +30,19 @@ import java.util.Vector;
         this.searchable = data;
     }
 
-    protected Vector<State> baseSearch(DataStructure openList, CostStart costStart) {
+    Vector<State> baseSearch(DataStructure openList, CostStart costStart) {
         State start = this.searchable.getStartState();
         Node startNode = new Node(start, costStart.calculateCost(start), null);
         openList.add(startNode);
         do {
             Node current = openList.pull();
-            if (searchable.isGoalState(current.getCurrentState())) {
+            if (searchable.isGoalState(current.getState())) {
                 return current.solution();
             }
-            this.closeList.add(current);
-            Vector<State> neighbors = this.searchable.getAllPossibleState(current.getCurrentState());
+            this.closedList.add(current);
+            Vector<State> neighbors = this.searchable.getAllPossibleStates(current.getState());
             for (State adj : neighbors) {
-                if (!isInTheCloseList(adj)) {
+                if (!InClosedList(adj)) {
                     visit(adj, current);
                 }
             }

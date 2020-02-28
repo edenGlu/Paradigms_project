@@ -4,13 +4,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
-import client.ClientHandler;
+import client.IClientHandler;
 
 public class MySerialServer implements Server {
     private MyRunnableServer _runnableServer;
 
     @Override
-    public void open(int port, ClientHandler clientHandler) {
+    public void open(int port, IClientHandler clientHandler) {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             this._runnableServer = new MyRunnableServer(clientHandler, serverSocket);
@@ -32,10 +32,10 @@ public class MySerialServer implements Server {
     private class MyRunnableServer implements Runnable {
         private final int TIMEOUT = 60000; // timeout after 60 seconds
         private boolean _doStop = false;
-        private ClientHandler _clientHandler;
+        private IClientHandler _clientHandler;
         private ServerSocket _serverSocket;
 
-        private MyRunnableServer(ClientHandler clientHandler, ServerSocket serverSocket) {
+        private MyRunnableServer(IClientHandler clientHandler, ServerSocket serverSocket) {
             this._clientHandler = clientHandler;
             this._serverSocket = serverSocket;
         }

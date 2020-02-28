@@ -10,5 +10,7 @@ public interface Searchable {
 
     State getStartState();
 
-    Vector<State> getAllPossibleState(State state);
+    State getGoalState();
+
+    Vector<State> getAllPossibleStates(State state);
 }

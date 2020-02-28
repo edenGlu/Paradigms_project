@@ -1,24 +1,29 @@
 package utils;
 
 public class Pair<I, J> {
-    private I first;
-    private J second;
+    private I _first;
+    private J _second;
 
     public Pair(I f, J s) {
-        first = f;
-        second = s;
+        _first = f;
+        _second = s;
     }
 
-    public I First() {
-        return first;
+    public I first() {
+        return _first;
     }
 
-    public J Second() {
-        return second;
+    public J second() {
+        return _second;
     }
 
     public boolean isEqual(Pair<I, J> other) {
-        return first.equals(other.First()) &&
-                second.equals(other.Second());
+        return _first.equals(other.first()) &&
+                _second.equals(other.second());
+    }
+
+    @Override
+    public String toString() {
+        return "(" + _first.toString() + "," + _second.toString() + ")";
     }
 }

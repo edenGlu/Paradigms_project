@@ -1,13 +1,13 @@
 package client;
 
-import cashe.CacheManager;
+import cache.CacheManager;
 import solution.Solver;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Vector;
 
-public class MyTestClientHandler implements ClientHandler {
+public class MyTestClientHandler implements IClientHandler {
 
     private Solver<String, String> _solver;
     private CacheManager _cacheManager;
@@ -18,18 +18,20 @@ public class MyTestClientHandler implements ClientHandler {
     }
 
     @Override
-    public void handleClient(Socket connSocket) {
+    public void handleClient(Socket clientSocket) {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
-            DataOutputStream out = new DataOutputStream(connSocket.getOutputStream());
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
-            System.out.println("Wait for message");
-            String checkLine = in.readLine();
-            System.out.println("The client has sent: " + checkLine);
+            while (true) {
+                // System.out.println("Wait for message");
+                String checkLine = in.readLine();
+                // System.out.println("The client has sent: " + checkLine);
 
-            String checkCapitalized = checkLine.toUpperCase() + '\n';
-            System.out.println("Sending to client: " + checkCapitalized);
-            out.writeBytes(checkCapitalized);
+                String checkCapitalized = checkLine.toUpperCase() + '\n';
+               // System.out.println("Sending to client: " + checkCapitalized);
+                out.writeBytes(checkCapitalized);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

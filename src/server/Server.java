@@ -1,9 +1,9 @@
 package server;
 
-import client.ClientHandler;
+import client.IClientHandler;
 
 public interface Server {
-    void open(int port, ClientHandler clientHandler);
+    void open(int port, IClientHandler clientHandler);
 
     void stop();
 }

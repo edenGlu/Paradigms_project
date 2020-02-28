@@ -2,7 +2,6 @@ package searchable;
 
 import utils.Pair;
 
-import java.util.Map.Entry;
 
 public class State {
 
@@ -26,4 +25,8 @@ public class State {
         return this.location.isEqual(other.location);
     }
 
+    @Override
+    public String toString() {
+        return this.location.toString();
+    }
 }

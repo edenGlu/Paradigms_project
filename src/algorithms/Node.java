@@ -5,12 +5,12 @@ import searchable.State;
 import java.util.Vector;
 
 public class Node {
-    private State currentState;
+    private State state;
     private double minPath;
     private Node parent;
 
     public Node(State s, double cost, Node p) {
-        this.currentState = s;
+        this.state = s;
         this.minPath = cost;
         this.parent = p;
     }
@@ -31,23 +31,24 @@ public class Node {
         return parent;
     }
 
-    public State getCurrentState() {
-        return currentState;
+    public State getState() {
+        return state;
     }
 
     public Vector<State> solution() {
         Vector<State> path;
-        if (this.parent != null) {
+        if (this.parent != null)
             path = this.parent.solution();
-        } else {
+        else
             path = new Vector<State>();
-        }
-        path.add(this.currentState);
+
+        path.add(this.state);
         return path;
     }
 
+    // consider override '.equals()' method instead
     public boolean isEqual(Node other) {
-        return this.currentState.isEqual(other.currentState);
+        return this.state.isEqual(other.state);
     }
 
 }

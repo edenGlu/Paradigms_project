@@ -1,8 +1,7 @@
-package search;
+package searcher;
 
 import algorithms.Node;
 
-import java.util.Iterator;
 
 public interface DataStructure {
     Node pull();
