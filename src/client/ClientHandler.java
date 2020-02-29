@@ -11,14 +11,12 @@ import java.util.logging.Logger;
 
 public class ClientHandler<P, S> implements IClientHandler {
     final private Solver<P, S>      solver;          // required
-    final private CacheManager      cacheManager;    // required
     final private ProblemCreator<P> pCreator;        // required
     private Logger                  logger;
     private String                  unsolvedMsg;
 
     private ClientHandler(CHBuilder<P, S> builder) {
         this.solver = builder.solver;
-        this.cacheManager = builder.cacheManager;
         this.pCreator = builder.pCreator;
         this.logger = builder.logger;
         this.unsolvedMsg = builder.unsolvedMsg.isEmpty() ? "Couldn't generate solution" : builder.unsolvedMsg;
@@ -26,6 +24,7 @@ public class ClientHandler<P, S> implements IClientHandler {
 
     @Override
     public void handleClient(Socket client) {
+        System.out.println("handling the client...");
         String line, solution;
         Vector<String> asString = new Vector<>();   // problem representation as String vector
 
@@ -36,14 +35,7 @@ public class ClientHandler<P, S> implements IClientHandler {
                 asString.add(line);
             }
 
-            if (cacheManager.isExist(asString))
-                solution = cacheManager.load(asString);
-            else
-                /* convert the string vector representing the problem, to
-                 * the actual problem type, then solve it. Assuming that
-                 * 'S' Generic Type have 'toString()' attribute.
-                 */
-                solution = solver.solve(pCreator.create(asString)).toString();
+            solution = solver.solve(pCreator.create(asString)).toString();
 
             out.writeBytes(!solution.isEmpty() ? solution : this.unsolvedMsg);
             if (logger != null)
@@ -69,14 +61,12 @@ public class ClientHandler<P, S> implements IClientHandler {
 
     public static class CHBuilder<P, S> {
         final Solver<P, S> solver;
-        final CacheManager cacheManager;
         final ProblemCreator<P> pCreator;
         private Logger logger;
         private String unsolvedMsg;
 
-        public CHBuilder(Solver<P, S> s, CacheManager cm, ProblemCreator<P> pc) {
+        public CHBuilder(Solver<P, S> s, ProblemCreator<P> pc) {
             this.solver = s;
-            this.cacheManager = cm;
             this.pCreator = pc;
         }
 

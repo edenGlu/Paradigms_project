@@ -1,4 +1,4 @@
-package algorithms;
+package searchAlgorithms;
 
 import searchable.State;
 

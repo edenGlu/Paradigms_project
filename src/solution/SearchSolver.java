@@ -2,11 +2,11 @@ package solution;
 
 import searchable.Searchable;
 import searchable.State;
-import searcher.Searcher;
+import searchAlgorithms.Searcher;
 
 import java.util.Vector;
 
-public class SearchSolver implements Solver<Searchable, Vector<State>> {
+public class SearchSolver implements Solver<Searchable, String> {
     private Searcher searcher;
 
     public SearchSolver(Searcher s){
@@ -14,8 +14,13 @@ public class SearchSolver implements Solver<Searchable, Vector<State>> {
     }
 
     @Override
-    public Vector<State> solve(Searchable problem) {
+    public String solve(Searchable problem) {
+        System.out.println("in the Search Solver.. "); //Remove
         searcher.setSearchable(problem);
-        return searcher.search();
+        return solutionToString(searcher.search());
+    }
+
+    private String solutionToString( Vector<State> solution){
+        return "Best Result in the world"; // TODO IMPLEMENT
     }
 }

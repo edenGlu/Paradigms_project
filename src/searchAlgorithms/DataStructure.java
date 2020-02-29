@@ -1,6 +1,6 @@
-package search;
+package searchAlgorithms;
 
-import algorithms.Node;
+import searchAlgorithms.Node;
 
 public interface DataStructure {
     Node pull();

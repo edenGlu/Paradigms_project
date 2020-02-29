@@ -1,6 +1,5 @@
-package searcher;
+package searchAlgorithms;
 
-import algorithms.Node;
 import searchable.State;
 import utils.Pair;
 
