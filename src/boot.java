@@ -6,6 +6,7 @@ import problem.ProxyProblemCreator;
 import searchAlgorithms.BFS;
 import searchable.Matrix;
 import searchable.Searchable;
+import server.MyParallelServer;
 import server.MySerialServer;
 import server.Server;
 import solution.SearchSolver;
@@ -27,17 +28,17 @@ public class boot {
         String cachePath = "C:\\Users\\Eden\\IdeaProjects\\Paradigms_project\\src\\cache_file.txt";
         Logger logger = boot.simpleLoggerExample();
 
-        Solver<Searchable, String> seachSolver = new SearchSolver(new BFS());
+        Solver<Searchable, String> searchSolver = new SearchSolver(new BFS());
         CacheManager cm = new FileCacheManager(cachePath);
 
-        Solver<Vector<String>, String> proxySolver = new SolverProxy<>(cm,seachSolver,Matrix::new);
+        Solver<Vector<String>, String> proxySolver = new SolverProxy<>(cm,searchSolver,Matrix::new);
 
         IClientHandler clientHandler = new ClientHandler.CHBuilder<>(proxySolver, new ProxyProblemCreator())
                 .setUnsolvedMsg("override the Default message !")
                 .setLogger(logger)
                 .build();
 
-        Server server = new MySerialServer();
+        Server server = new MyParallelServer();
         server.open(12359, clientHandler);
 
 //        Solver<String,String> so = new StringReverser();
