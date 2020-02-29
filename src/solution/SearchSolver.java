@@ -17,10 +17,6 @@ public class SearchSolver implements Solver<Searchable, String> {
     public String solve(Searchable problem) {
         System.out.println("in the Search Solver.. "); //Remove
         searcher.setSearchable(problem);
-        return solutionToString(searcher.search());
-    }
-
-    private String solutionToString( Vector<State> solution){
-        return "Best Result in the world"; // TODO IMPLEMENT
+        return searcher.search().toString();
     }
 }
