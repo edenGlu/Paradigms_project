@@ -1,6 +1,5 @@
 package client;
 
-import cache.CacheManager;
 import problem.ProblemCreator;
 import solution.Solver;
 

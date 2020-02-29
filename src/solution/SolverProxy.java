@@ -30,7 +30,7 @@ public class SolverProxy<P> implements Solver< Vector<String>, String > {
         }
         System.out.println("Did not find cached result, start solving.. "); //Remove
         //SAVE TO CACHE
-        solution = this.solver.solve(this.pc.create(problem)); //SAVE TO CACHE
+        solution = this.solver.solve(this.pc.create(problem));
         this.cacheManager.save(problem,solution);
         return solution;
 
