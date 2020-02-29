@@ -57,5 +57,4 @@ public class BestFS extends Searcher {
             next.setMinPath(newPath);
         }
     }
-
 }
