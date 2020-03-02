@@ -7,7 +7,6 @@ import searchAlgorithms.BFS;
 import searchable.Matrix;
 import searchable.Searchable;
 import server.MyParallelServer;
-import server.MySerialServer;
 import server.Server;
 import solution.SearchSolver;
 import solution.Solver;
@@ -18,9 +17,7 @@ import java.util.logging.Logger;
 
 public class boot {
     private static Logger simpleLoggerExample() {
-        /* nice feature for ClientHandler. An object which records the handler's operations,
-        * like if was some Exception, or if some query has not been resolved.*/
-        return Logger.getLogger("some_name");
+        return Logger.getLogger("my_logger");
 
     }
 
@@ -34,26 +31,11 @@ public class boot {
         Solver<Vector<String>, String> proxySolver = new SolverProxy<>(cm,searchSolver,Matrix::new);
 
         IClientHandler clientHandler = new ClientHandler.CHBuilder<>(proxySolver, new ProxyProblemCreator())
-                .setUnsolvedMsg("override the Default message !")
+                .setUnsolvedMsg("Some new Default message !!!!")
                 .setLogger(logger)
                 .build();
 
         Server server = new MyParallelServer();
         server.open(12359, clientHandler);
-
-//        Solver<String,String> so = new StringReverser();
-//        Solver<Searchable, Vector<State>> solver = new SearchSolver(new DFS());
-//        CacheManager cacheManager = new FileCacheManager(cachePath);
-//
-//        ProblemCreator<Vector<String>> ppc = new ProxyProblemCreator(); //For CH if using Proxy
-//        Solver<Searchable, Vector<State>> s = new SolverProxy(solver, cacheManager)
-//        IClientHandler clientHandler = new ClientHandler.CHBuilder<>(solver, Matrix::new)
-//                .setUnsolvedMsg("override the Default message !")
-//                .setLogger(logger)
-//                .build();
-//
-//        Server server = new MySerialServer();
-//        server.open(12359, clientHandler);
-
     }
 }

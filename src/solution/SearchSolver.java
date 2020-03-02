@@ -1,10 +1,8 @@
 package solution;
 
 import searchable.Searchable;
-import searchable.State;
 import searchAlgorithms.Searcher;
 
-import java.util.Vector;
 
 public class SearchSolver implements Solver<Searchable, String> {
     private Searcher searcher;
@@ -15,7 +13,8 @@ public class SearchSolver implements Solver<Searchable, String> {
 
     @Override
     public String solve(Searchable problem) {
-        System.out.println("in the Search Solver.. "); //Remove
+
+        System.out.println("in the Search Solver.. ");
         searcher.setSearchable(problem);
         return searcher.search().toString();
     }

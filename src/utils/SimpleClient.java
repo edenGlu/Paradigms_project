@@ -8,12 +8,12 @@ import java.net.Socket;
 import java.util.Vector;
 
 public class SimpleClient {
-    /*
-    * Simple program for you to check the server when necessary.
-    */
+    /* Simple client program for interacting with our Server program app */
     public static void main(String[] args) {
         try {
-            Socket serverSocket = new Socket("localhost", 12359);
+            int port = 12359;
+            String host = "localhost";
+            Socket serverSocket = new Socket(host, port);
 
             DataOutputStream outToServer = new DataOutputStream(serverSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));

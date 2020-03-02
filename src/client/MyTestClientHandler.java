@@ -24,12 +24,12 @@ public class MyTestClientHandler implements IClientHandler {
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
             while (true) {
-                // System.out.println("Wait for message");
+                System.out.println("Wait for message");
                 String checkLine = in.readLine();
-                // System.out.println("The client has sent: " + checkLine);
+                System.out.println("The client has sent: " + checkLine);
 
                 String checkCapitalized = checkLine.toUpperCase() + '\n';
-               // System.out.println("Sending to client: " + checkCapitalized);
+                System.out.println("Sending to client: " + checkCapitalized);
                 out.writeBytes(checkCapitalized);
             }
         } catch (Exception e) {
@@ -60,10 +60,10 @@ public class MyTestClientHandler implements IClientHandler {
             solution = _solver.solve(problem);
         }
         try {
-            System.out.println("send s: " + solution);
+            System.out.println("Send s: " + solution);
             out.writeBytes(solution);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

@@ -4,7 +4,7 @@ import client.IClientHandler;
 
 import java.net.Socket;
 
-// Task class to be executed
+/* Class which representing task to be executed. */
 class Task implements Runnable {
     private IClientHandler _clientHandler;
     private Socket _clientSocket;

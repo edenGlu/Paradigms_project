@@ -30,7 +30,7 @@ public class MySerialServer implements Server {
 
 
     private class MyRunnableServer implements Runnable {
-        private final int TIMEOUT = 60000; // timeout after 60 seconds
+        private final int TIMEOUT = 60000; // 60 seconds timeout.
         private boolean _doStop = false;
         private IClientHandler _clientHandler;
         private ServerSocket _serverSocket;
@@ -61,7 +61,7 @@ public class MySerialServer implements Server {
                     System.out.println("Socket time out: " + s.getMessage());
                     break;
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }

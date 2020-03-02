@@ -16,18 +16,18 @@ public class MyParallelServer implements Server {
     private ServerSocket _serverSocket;
     static final int MAX_T = 3;
 
-    @java.lang.Override
+    @Override
     public void open(int port, IClientHandler clientHandler) {
         this._clientHandler = clientHandler;
         try {
             this._serverSocket = new ServerSocket(port);
             acceptClients();
         } catch (Exception e) {
-            System.out.println("EXCEPTION: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    @java.lang.Override
+    @Override
     public void stop() {
         _shouldStop = true;
     }
@@ -37,14 +37,17 @@ public class MyParallelServer implements Server {
         while (!_shouldStop) {
             try {
                 _serverSocket.setSoTimeout(TIMEOUT);
+
                 Socket clientSocket = _serverSocket.accept();
-                System.out.println("Got client");
+                System.out.println("Client accepted !");
+
                 pool.execute(new Task(_clientHandler, clientSocket));
+
             } catch (SocketTimeoutException s) {
-                System.out.println("Socket time out: " + s.getMessage());
+                System.err.println("Socket time out: " + s.getMessage());
                 break;
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
         pool.shutdown();

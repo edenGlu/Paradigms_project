@@ -23,9 +23,9 @@ public class ClientHandler<P, S> implements IClientHandler {
 
     @Override
     public void handleClient(Socket client) {
-        System.out.println("handling the client...");
+        System.out.println("Handling the client...");
         String line, solution;
-        Vector<String> asString = new Vector<>();   // problem representation as String vector
+        Vector<String> asString = new Vector<>();   // problem representation as a String vector
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
              DataOutputStream out = new DataOutputStream(client.getOutputStream())) {
@@ -55,14 +55,14 @@ public class ClientHandler<P, S> implements IClientHandler {
         else
             logger.warning("Answer didn't found. client address: " + clientAddress);
 
-        logger.info("closing Connection");
+        logger.info("Closing Connection");
     }
 
     public static class CHBuilder<P, S> {
-        final Solver<P, S> solver;
+        final Solver<P, S>      solver;
         final ProblemCreator<P> pCreator;
-        private Logger logger;
-        private String unsolvedMsg;
+        private Logger          logger;
+        private String          unsolvedMsg;
 
         public CHBuilder(Solver<P, S> s, ProblemCreator<P> pc) {
             this.solver = s;
