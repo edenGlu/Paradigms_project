@@ -50,6 +50,7 @@ public class MyParallelServer implements Server {
                 e.printStackTrace();
             }
         }
+        System.out.println("pool shut down");
         pool.shutdown();
     }
 }

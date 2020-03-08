@@ -3,7 +3,7 @@ import cache.FileCacheManager;
 import client.IClientHandler;
 import client.ClientHandler;
 import problem.ProxyProblemCreator;
-import searchAlgorithms.BFS;
+import searchAlgorithms.FactoryBFS;
 import searchable.Matrix;
 import searchable.Searchable;
 import server.MyParallelServer;
@@ -18,15 +18,14 @@ import java.util.logging.Logger;
 public class boot {
     private static Logger simpleLoggerExample() {
         return Logger.getLogger("my_logger");
-
     }
 
     public static void main(String[] args) {
         String cachePath = "C:\\Users\\Eden\\IdeaProjects\\Paradigms_project\\src\\cache_file.txt";
         Logger logger = boot.simpleLoggerExample();
 
-        Solver<Searchable, String> searchSolver = new SearchSolver(new BFS());
-        CacheManager cm = new FileCacheManager(cachePath);
+        Solver<Searchable, String> searchSolver = new SearchSolver(new FactoryBFS());
+        FileCacheManager cm = new FileCacheManager(cachePath);
 
         Solver<Vector<String>, String> proxySolver = new SolverProxy<>(cm,searchSolver,Matrix::new);
 
@@ -37,5 +36,6 @@ public class boot {
 
         Server server = new MyParallelServer();
         server.open(12359, clientHandler);
+        cm.writeToFile();
     }
 }
